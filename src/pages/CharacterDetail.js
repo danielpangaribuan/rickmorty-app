@@ -15,7 +15,7 @@ function CharacterDetail () {
     let [loc, setLoc] = useState('');
 
     useEffect(() => {
-        if ( obj.location ) {
+        if ( obj ) {
             let locationDefault = obj.location.filter(el => {
                 let _foundIdx = el.resident.findIndex( val => val.id == id );
                 if ( _foundIdx >= 0 ) return el.name;
