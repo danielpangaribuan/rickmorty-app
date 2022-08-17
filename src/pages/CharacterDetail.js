@@ -35,7 +35,6 @@ function CharacterDetail () {
                 status
                 gender
                 species
-                locationLocal @client
             }
         }
     `;
@@ -101,7 +100,7 @@ function CharacterDetail () {
             <HeaderTitle title="Character Detail" />
             <Row>
                 <Col md={4}>
-                    <div className="image-profile">
+                    <div className="image-profile mb-2">
                         <img src={ data.charactersByIds[0].image } style={{ width: '100%' }} />
                     </div>
                 </Col>
@@ -124,22 +123,16 @@ function CharacterDetail () {
                                 {data.charactersByIds[0].gender}
                             </span>
                         </div>
+                        <Form>
+                            <Form.Group>
+                                <Form.Label>Location</Form.Label>
+                                <Form.Control type="text" placeholder="Input Location" name="location" defaultValue={loc} />
+                            </Form.Group>
+                            <Button variant="dark" className="btn-sm mt-2 d-flex justify-content-end" onClick={ () => submitLocation() }>
+                                Submit
+                            </Button>
+                        </Form>
                     </div>
-                </Col>
-            </Row>
-            <Row>
-                <Col md={4}></Col>
-                <Col md={8}>
-
-                    <Form>
-                        <Form.Group>
-                            <Form.Label>Location</Form.Label>
-                            <Form.Control type="text" placeholder="Input Location" name="location" defaultValue={loc} />
-                        </Form.Group>
-                        <Button variant="dark" className="btn-sm" onClick={ () => submitLocation() }>
-                            Submit
-                        </Button>
-                    </Form>
                 </Col>
             </Row>
         </Container>
