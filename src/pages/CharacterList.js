@@ -69,7 +69,7 @@ function CharacterList () {
 
             if ( startPage > 2 ) {
                 item.push(<Pagination.Item key={'pagination-1'} onClick={ () => setPage(1) }>1</Pagination.Item>);
-                item.push(<Pagination.Ellipsis />);
+                item.push(<Pagination.Ellipsis key={'ellipsis-1'} />);
             }
             for ( let i = startPage; i <= endPage; i++ ) {
                 { 
@@ -82,7 +82,7 @@ function CharacterList () {
             }
             if ( endPage < totalPage - 2 ) {
                 item.push(<Pagination.Ellipsis key={'pagination-' + totalPage} />);
-                item.push(<Pagination.Item onClick={ () => setPage(totalPage) }>{ totalPage }</Pagination.Item>)
+                item.push(<Pagination.Item key={'ellipsis-2'} onClick={ () => setPage(totalPage) }>{ totalPage }</Pagination.Item>)
             }
             return item;
         }

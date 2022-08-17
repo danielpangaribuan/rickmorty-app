@@ -3,7 +3,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import HeaderTitle from './header';
 
 function AccordionApp(props) {
-    console.log(props)
     return (
         <Accordion>
             <Accordion.Item eventKey="0">

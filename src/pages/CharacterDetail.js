@@ -15,7 +15,6 @@ function CharacterDetail () {
     let [loc, setLoc] = useState('');
 
     useEffect(() => {
-        console.log(obj)
         if ( obj.location ) {
             let locationDefault = obj.location.filter(el => {
                 let _foundIdx = el.resident.findIndex( val => val.id == id );
@@ -25,7 +24,6 @@ function CharacterDetail () {
             if ( locationDefault.length ) setLoc(locationDefault[0].name);
         }
     }, [])
-    console.log(obj)
     const DETAIL_QUERY_ID = gql`
         query GetCharactersByIds {
             charactersByIds(ids: [${id}]) {
