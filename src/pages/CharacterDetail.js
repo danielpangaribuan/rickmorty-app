@@ -78,7 +78,7 @@ function CharacterDetail () {
             }
 
         } else {
-            let newObj = {
+            setObj(obj = {
                 location: [
                     {
                         id: 1,
@@ -91,8 +91,7 @@ function CharacterDetail () {
                         ]
                     }
                 ]
-            }
-            setObj(newObj);
+            })
         };
         setLoc(value);
         localStorage.setItem('location', JSON.stringify(obj));
