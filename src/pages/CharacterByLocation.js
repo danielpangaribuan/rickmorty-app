@@ -7,7 +7,6 @@ import AccordionApp from '../components/accordion';
 
 function CharacterByLocation () {
     let [data, setData] = useState(JSON.parse(localStorage.getItem('location')));
-    console.log(data)
     const renderLocation = () => {
         if ( data ) {
 
