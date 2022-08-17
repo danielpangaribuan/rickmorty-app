@@ -7,9 +7,9 @@ import AccordionApp from '../components/accordion';
 
 function CharacterByLocation () {
     let [data, setData] = useState(JSON.parse(localStorage.getItem('location')));
-
+    console.log(data)
     const renderLocation = () => {
-        if ( data ) {
+        if ( Object.keys(data).length ) {
 
             if ( !data.location.length ) return <h4>Location not avaible! Assign location at Page Character Detail</h4>
 

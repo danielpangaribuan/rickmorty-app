@@ -11,11 +11,11 @@ import HeaderTitle from "../components/header";
 
 function CharacterDetail () {
     let { id } = useParams();
-    let [obj, setObj] = useState(JSON.parse(localStorage.getItem('location')));
+    let [obj, setObj] = useState(JSON.parse(localStorage.getItem('location')) || {});
     let [loc, setLoc] = useState('');
 
     useEffect(() => {
-        if ( obj ) {
+        if ( Object.keys(obj).length ) {
             let locationDefault = obj.location.filter(el => {
                 let _foundIdx = el.resident.findIndex( val => val.id == id );
                 if ( _foundIdx >= 0 ) return el.name;
@@ -40,10 +40,12 @@ function CharacterDetail () {
         DETAIL_QUERY_ID,
         { fetchPolicy: 'no-cache' }
     );
+    
     const submitLocation = () => {
         let input = document.querySelector('input[name=location]');
         let value = input.value;
-        if ( obj ) {
+        
+        if ( Object.keys(obj).length ) {
             let isLocationExist = obj.location.findIndex( el => el.name.toLowerCase() == value.toLowerCase() );
             setObj(obj.location.filter((el, idx) => {
                 let _removeNameExist = el.resident.filter( item => item.id !== id );
@@ -58,7 +60,8 @@ function CharacterDetail () {
                 })
                 setObj(newObj);
             } else {
-                setObj(obj.location.push({
+                let newObj = obj;
+                newObj.location.push.push({
                     id: obj.location.length + 1,
                     name: input.value,
                     resident: [
@@ -67,14 +70,15 @@ function CharacterDetail () {
                             name: data.charactersByIds[0].name
                         }
                     ]
-                }));
+                })
+                setObj(newObj);
             }
 
         } else {
-            setObj({
+            let newObj = {
                 location: [
                     {
-                        id: obj.location.length + 1,
+                        id: 1,
                         name: input.value,
                         resident: [
                             {
@@ -84,7 +88,8 @@ function CharacterDetail () {
                         ]
                     }
                 ]
-            });
+            }
+            setObj(newObj);
         };
         setLoc(value);
         localStorage.setItem('location', JSON.stringify(obj));
