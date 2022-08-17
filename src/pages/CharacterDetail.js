@@ -7,12 +7,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import HeaderTitle from "../components/header";
 
 function CharacterDetail () {
     let { id } = useParams();
     let [obj, setObj] = useState(JSON.parse(localStorage.getItem('location')) || {});
     let [loc, setLoc] = useState('');
+    let [loadingSubmit, setLoadingSubmit] = useState(false);
 
     useEffect(() => {
         if ( Object.keys(obj).length ) {
@@ -42,6 +44,7 @@ function CharacterDetail () {
     );
     
     const submitLocation = () => {
+        setLoadingSubmit(true);
         let input = document.querySelector('input[name=location]');
         let value = input.value;
         
@@ -61,7 +64,7 @@ function CharacterDetail () {
                 setObj(newObj);
             } else {
                 let newObj = obj;
-                newObj.location.push.push({
+                newObj.location.push({
                     id: obj.location.length + 1,
                     name: input.value,
                     resident: [
@@ -93,13 +96,14 @@ function CharacterDetail () {
         };
         setLoc(value);
         localStorage.setItem('location', JSON.stringify(obj));
+        setLoadingSubmit(false);
     }
 
     if ( loading ) return <Loading />
     if ( error ) return <pre>{ error.message }</pre>
 
     return (
-        <Container>
+        <Container className="mb-4">
             <HeaderTitle title="Character Detail" />
             <Row>
                 <Col md={4}>
@@ -132,7 +136,9 @@ function CharacterDetail () {
                                 <Form.Control type="text" placeholder="Input Location" name="location" defaultValue={loc} />
                             </Form.Group>
                             <Button variant="dark" className="btn-sm mt-2 d-flex justify-content-end" onClick={ () => submitLocation() }>
-                                Submit
+                                {
+                                    !loadingSubmit ? 'Submit' : <Spinner animation="border" size="sm" />
+                                }
                             </Button>
                         </Form>
                     </div>
